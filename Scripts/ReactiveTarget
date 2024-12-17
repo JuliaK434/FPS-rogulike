@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ReactiveTarget:MonoBehaviour
+{
+    private EnemyAI _enemyAI; //ссылка на компонент 
+
+    private void Start()
+    {
+        //Получить данные о EnemyAI
+        _enemyAI = GetComponent<EnemyAI>();
+    }
+
+    //Реакция на попадание
+    public void ReactToHit()
+    {
+        if (_enemyAI != null)
+        {
+            _enemyAI.SetAlive(false);//вызываем его открытый код
+
+            //запускаем сопрограмму для смерти
+            StartCoroutine(DieCoroutine(3));
+        }
+    }
+    //сопрограмма смерти
+    private IEnumerator DieCoroutine(float waitSecond)
+    {
+        this.transform.Rotate(45, 0, 0);
+
+        yield return new WaitForSeconds(waitSecond);
+
+        Destroy(this.transform.gameObject);
+    }
+}

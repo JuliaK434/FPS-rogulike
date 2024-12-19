@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class ReactiveTarget:MonoBehaviour
 {
-    private EnemyAI _enemyAI; //СЃСЃС‹Р»РєР° РЅР° РєРѕРјРїРѕРЅРµРЅС‚ 
+    private EnemyAI _enemyAI; //ссылка на компонент 
 
     private void Start()
     {
-        //РџРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ Рѕ EnemyAI
+        //Получить данные о EnemyAI
         _enemyAI = GetComponent<EnemyAI>();
     }
 
-    //Р РµР°РєС†РёСЏ РЅР° РїРѕРїР°РґР°РЅРёРµ
+    //Реакция на попадание
     public void ReactToHit()
     {
         if (_enemyAI != null)
         {
-            _enemyAI.SetAlive(false);//РІС‹Р·С‹РІР°РµРј РµРіРѕ РѕС‚РєСЂС‹С‚С‹Р№ РєРѕРґ
+            _enemyAI.SetAlive(false);//вызываем его открытый код
 
-            //Р·Р°РїСѓСЃРєР°РµРј СЃРѕРїСЂРѕРіСЂР°РјРјСѓ РґР»СЏ СЃРјРµСЂС‚Рё
+            //запускаем сопрограмму для смерти
             StartCoroutine(DieCoroutine(3));
         }
     }
-    //СЃРѕРїСЂРѕРіСЂР°РјРјР° СЃРјРµСЂС‚Рё
+    //сопрограмма смерти
     private IEnumerator DieCoroutine(float waitSecond)
     {
         this.transform.Rotate(45, 0, 0);
